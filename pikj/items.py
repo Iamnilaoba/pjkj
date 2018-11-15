@@ -9,7 +9,5 @@ import scrapy
 
 # 设定要下载的文件
 class PikjItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    addr=scrapy.Field()
-    name=scrapy.Field()
+    auth=scrapy.Field()
+    dz=scrapy.Field()

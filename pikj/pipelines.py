@@ -6,19 +6,20 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from urllib import request
 import os
-
+import requests
 # 保存下载文件
+
+from scrapy.exporters import JsonLinesItemExporter
+
 class PikjPipeline(object):
+    def __init__(self):
+        self.fp=open("duanzi.json","wb")
+        self.export=JsonLinesItemExporter(self.fp,ensure_ascii=False)
+
     def process_item(self, item, spider):
-    #    req=request.Request(url=item['addr'])
-    #    req=request.urlopen(req)
-    #    filename=os.path.join(r"D:\aa",item['name']+'.jpg')
-    #    with open(filename,"wb") as f:
-    #        f.write(req.read())
+        self.export.export_item(item)
+        return item
 
+    def close_item(self,spider):
+        self.fp.close()
 
-        import requests
-        req=requests.get(url=item['addr'])
-        filename = os.path.join(r"D:\aa")
-        with open(filename,"wb") as f:
-            f.write(req.content)
